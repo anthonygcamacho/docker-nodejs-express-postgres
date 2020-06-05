@@ -1,0 +1,10 @@
+Udemy Course : https://www.udemy.com/course/sql-and-postgresql-for-beginners/
+
+Setup:
+
+1. create.sql
+2. insert_movies.sql
+3. insert_directors.sql
+4. insert_actors.sql
+5. insert_movies_actors.sql
+6. insert_movie_revenue.sql

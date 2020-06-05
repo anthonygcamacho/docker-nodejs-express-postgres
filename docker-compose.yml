@@ -1,0 +1,44 @@
+version: '3.7'
+
+services:
+
+    server:
+        build:
+            dockerfile: Dockerfile
+            context: ./server
+        ports:
+            - 8080:8080
+        depends_on:
+            - db
+        environment:
+            - PGUSER=postgres
+            - PGHOST=db
+            - PGDATABASE=postgres
+            - PGPASSWORD=postgres
+            - PGPORT=5432
+        restart: always
+        volumes:
+            - /app/node_modules
+            - ./server:/app
+
+    db:
+        image: 'postgres:12.3'
+        restart: always
+        environment:
+            POSTGRES_USER: postgres
+            POSTGRES_PASSWORD: postgres
+        ports: 
+            - 5432:5432
+        volumes:
+            - ./db:/var/lib/postgresql/data
+
+    pgadmin:
+        image: dpage/pgadmin4:4.21
+        depends_on:
+            - db
+        ports:
+            - 5555:80
+        environment:
+            PGADMIN_DEFAULT_EMAIL: pgadmin4@pgadmin.org
+            PGADMIN_DEFAULT_PASSWORD: admin
+        restart: unless-stopped
